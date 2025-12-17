@@ -367,7 +367,7 @@ def step_result():
         st.write(f"**AVG (수익률)**: {data.get('AVG(수익률)', '-')}")
         st.write(f"**OPS (활동성)**: {data.get('OPS(활동성)', '-')}")
         st.write(f"**ERA (안정성)**: {data.get('ERA(안정성)', '-')}")
-        st.write(f"거래금액 {data.get('거래금액',0)} | 안정성 {data.get('안정성_점수',0)} | 분산투자 {data.get('분산투자',0)} | 거래빈도 {data.get('거래빈도',0)} | 해외비중 {data.get('해외비중',0)}")
+        st.write(f"거래금액 {data.get('거래금액',0)}점 | 안정성 {data.get('안정성_점수',0)}점 | 분산투자 {data.get('분산투자',0)}점 | 거래빈도 {data.get('거래빈도',0)}점 | 해외비중 {data.get('해외비중',0)}점")
 
     status_container = st.empty()
 
