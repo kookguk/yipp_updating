@@ -193,7 +193,7 @@ def generate_updated_card_gemini(team: str, position: str, number: str, name: st
         - Display the Korean name "{name}" prominently at the bottom.
         - Add their English name directly below.
     5. **Stats Section (Data Injection)**:
-        - Title: "YIPP PRO" (Update from Rookie).
+        - Title: "YIPP PRO" (Update from Rookie and Change the color red to blue
         - Position: "{position}".
         - **Radar Chart**:
             - Fill the radar chart polygon based on these values (0-100 scale):
