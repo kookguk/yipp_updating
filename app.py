@@ -300,7 +300,7 @@ def step_login():
     is_numeric = account.isdigit()
 
     if account and (not is_numeric or not is_valid_length):
-         st.markdown(f":red[❌ 유효한 12자리 계좌번호를 입력해주세요.]")
+         st.markdown(f":red[❌ YIPP 계좌번호는 12자리입니다.]")
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -314,15 +314,15 @@ def step_login():
             # 데이터가 있으면 세션에 저장
             st.session_state["player_data"] = row_data
             
-            # [수정] CSV의 '팀' 컬럼에서 구단 정보 가져오기
-            # 값이 비어있을 경우 대비하여 안전장치 추가 (기본값 랜덤)
-            import random
+            # [수정] CSV의 '팀' 컬럼에서 구단 정보 가져오기 (랜덤 할당 로직 제거)
             fetched_team = row_data.get('팀', None)
             
             if fetched_team and str(fetched_team).lower() != 'nan' and str(fetched_team).strip() != "":
+                # CSV에 있는 팀 이름을 그대로 사용
                 st.session_state["team"] = str(fetched_team).strip()
             else:
-                st.session_state["team"] = random.choice(KBO_TEAMS)
+                # 팀 정보가 없을 경우 기본값 할당 (예: SSG 랜더스)
+                st.session_state["team"] = "SSG 랜더스"
             
             st.session_state["number"] = account[-2:] # 계좌번호 뒤 2자리
             
@@ -330,7 +330,7 @@ def step_login():
             new_position = determine_position(row_data)
             st.session_state["position"] = new_position
             
-            st.success(f"환영합니다, {name} 선수! ({st.session_state['team']})\n업데이트된 데이터를 불러오는 중입니다...")
+            st.success(f"환영합니다, {name} 선수! ({st.session_state['team']})\n업데이트된 투자 내역을 불러오는 중입니다...")
             time.sleep(1) 
             go_next_step()
             st.rerun()
@@ -360,21 +360,20 @@ def step_result():
     """, unsafe_allow_html=True)
 
     # 텍스트 정보 표시
-    st.subheader(f"{team} | No.{num} | {name}")
-    st.write(f"### 포지션: **{pos}**")
+    st.subheader(f"{team} | No.{num} | {name} | {pos}")
     
     # 디버깅용: 실제 데이터 확인 (접을 수 있음)
-    with st.expander("📊 내 상세 스탯 확인하기"):
+    with st.expander("📊 내 상세 투자 내역 확인하기"):
         st.write(f"**AVG (수익률)**: {data.get('AVG(수익률)', '-')}")
         st.write(f"**OPS (활동성)**: {data.get('OPS(활동성)', '-')}")
         st.write(f"**ERA (안정성)**: {data.get('ERA(안정성)', '-')}")
-        st.write(f"**레이더 차트**: 거래금액 {data.get('거래금액',0)} | 안정성 {data.get('안정성_점수',0)} | 분산투자 {data.get('분산투자',0)}")
+        st.write(f"거래금액 {data.get('거래금액',0)} | 안정성 {data.get('안정성_점수',0)} | 분산투자 {data.get('분산투자',0)} | 거래빈도 {data.get('거래빈도',0)} | 해외비중 {data.get('해외비중',0)}")
 
     status_container = st.empty()
 
     # 이미지 생성
     if st.session_state["card_image_bytes"] is None:
-        status_container.info("🎨 고객님의 금융 데이터를 분석하여 선수 카드를 업데이트 중입니다...")
+        status_container.info(f"🎨 {name}님의 투자 내역을 분석하여 선수 카드를 업데이트 중입니다...")
         
         # 실제 데이터와 CSV에서 가져온 팀 정보를 넘겨서 이미지 생성
         img_bytes = generate_updated_card_gemini(team, pos, num, name, data)
