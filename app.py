@@ -296,7 +296,6 @@ def step_login():
 
     # 2. 계좌번호 입력
     st.markdown("---")
-    st.write("YIPP 계좌번호 뒤 2자리가 등번호로 사용됩니다.")
     account = st.text_input("YIPP 계좌번호 입력 (12자리)", value=st.session_state["account"], max_chars=12, placeholder="숫자만 입력해주세요")
     st.session_state["account"] = account
 
