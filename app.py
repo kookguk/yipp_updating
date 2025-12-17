@@ -330,7 +330,7 @@ def step_login():
             new_position = determine_position(row_data)
             st.session_state["position"] = new_position
             
-            st.success(f"환영합니다, {name} 선수! ({st.session_state['team']})\n업데이트된 투자 내역을 불러오는 중입니다...")
+            st.success(f"환영합니다, {name} 선수! 업데이트된 투자 내역을 불러오는 중입니다...")
             time.sleep(1) 
             go_next_step()
             st.rerun()
