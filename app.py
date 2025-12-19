@@ -386,7 +386,7 @@ def step_result():
             st.image(img, use_container_width=True)
             
             st.download_button(
-                label="📸 내 카드 공유하기",
+                label="📸 내 선수 카드 공유하기",
                 data=st.session_state["card_image_bytes"],
                 file_name=f"yipp_pro_card_{num}.png",
                 mime="image/png",
