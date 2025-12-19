@@ -133,6 +133,9 @@ def validate_user(name, account):
         # CSV 읽기 (인코딩 문제는 상황에 따라 utf-8, cp949 등 조정 필요)
         df = pd.read_csv(CSV_FILE_PATH, dtype={'계좌번호': str})
         
+        # [수정] 컬럼명 앞뒤 공백 제거 (CSV 파일 헤더의 공백 문제 해결)
+        df.columns = df.columns.str.strip()
+        
         # 공백 제거 등 전처리
         df['이름'] = df['이름'].astype(str).str.strip()
         df['계좌번호'] = df['계좌번호'].astype(str).str.strip().str.replace('-', '') # 하이픈 제거 비교
@@ -315,6 +318,7 @@ def step_login():
             st.session_state["player_data"] = row_data
             
             # [수정] CSV의 '팀' 컬럼에서 구단 정보 가져오기 (랜덤 할당 로직 제거)
+            # 이제 컬럼명 공백이 제거되었으므로 '팀' 키로 안전하게 접근 가능
             fetched_team = row_data.get('팀', None)
             
             if fetched_team and str(fetched_team).lower() != 'nan' and str(fetched_team).strip() != "":
