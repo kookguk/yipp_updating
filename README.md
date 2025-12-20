@@ -3,6 +3,8 @@
 > **"당신의 투자 실력, 이제 루키를 넘어 프로가 될 시간입니다."**
 > 개인의 YBL 리그 내 실제 투자 성과 데이터를 반영하여, 기존의 '신인(Rookie)' 카드를 '프로(Pro)' 등급의 새로운 선수 카드로 업데이트합니다.
 
+👉 **Live Demo:** [https://yipp-update.streamlit.app/](https://yipp-update.streamlit.app/)
+
 ---
 
 ## 📅 1. 기획 배경
